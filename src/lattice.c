@@ -15,11 +15,11 @@ int fill_lattice(int *lattice, int n, float p) {
   // calculo su energia
   for (i=0;i<n;i++) {
     for(j=0;j<n;j++) {
-      s = lattice[i*n + j];
+      s = lattice[i + j*n];
       elocal = lattice[(n+i+1)%n + n*j] + lattice[(n+i-1)%n + n*j] + lattice[i + n*((j+1+n)%n)] + lattice[i + n*((j-1+n)%n)];
       energia += s*elocal;
     }
-    energia = energia/4; // no estoy segura si esta bien el calculo de energia, y esto
+    energia = energia/2; // no estoy segura si esta bien el calculo de energia, y esto
   }
   return 0;
 }
