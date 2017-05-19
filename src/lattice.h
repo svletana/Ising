@@ -5,3 +5,4 @@ int print_lattice(int *lattice, int n);
 #endif
 
 extern float energia;
+extern float magnetizacion;

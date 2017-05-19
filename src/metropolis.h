@@ -6,3 +6,4 @@ int flip(int *lattice, int s, int n, float T); //modificado
 #endif
 
 extern float energia;
+extern float magnetizacion;
