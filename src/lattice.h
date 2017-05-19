@@ -1,8 +1,5 @@
 #ifndef LATTICE_H
 #define LATTICE_H
-int fill_lattice(int *lattice, int n, float p);
-int print_lattice(int *lattice, int n);
+float *fill_lattice(int *lattice, int n, float p, float ener, float mag);
+int print_lattice(int *lattice, int n, float ener, float mag);
 #endif
-
-extern float energia;
-extern float magnetizacion;

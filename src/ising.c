@@ -2,17 +2,18 @@
 #include <time.h>
 #include <stdio.h>
 #include <math.h>
- 
+
 
 #include "metropolis.h"
 #include "lattice.h"
 
-
-/*VARIABLES GLOBALES*/
-float energia;
-float magnetizacion; //OJO! MAGNETIZACION EN REALIDAD ES MAGNETIZACION POSTA * (n*n)
-
 int main(int argc, char **argv) {
+  float *params = malloc(2*sizeof(float));
+  float ener = 0;
+  float mag = 0;
+
+  *params = ener;
+  *(params+1) = mag;
 
   FILE *output = fopen("output.txt", "w");
   if (output == NULL)
@@ -27,14 +28,15 @@ int main(int argc, char **argv) {
   float T = 0.1; //No poner T=0
   int niter = 10000;
   srand(time(NULL));
-  fill_lattice(lattice, n, prob);
-  print_lattice(lattice, n);
+
+  params = fill_lattice(lattice, n, prob, ener, mag); 
+  print_lattice(lattice, n, *params, *(params+1));
+
   for (int i = 0; i < niter; i++) {
-    metropolis(lattice, n, T);
-    fprintf(output, "%.10f\n", (magnetizacion)/(n*n));
-    if (i==niter-1) print_lattice(lattice, n);
+    params = metropolis(lattice, n, T, *params, *(params+1));
+    fprintf(output, "%.10f\n", *(params+1)/(n*n));
+    if (i==niter-1) print_lattice(lattice, n, *params, *(params+1));
   }
-  
-  
+
   return 0;
 }
