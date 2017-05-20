@@ -29,14 +29,15 @@ int main(int argc, char **argv) {
   int niter = 10000;
   srand(time(NULL));
 
-  params = fill_lattice(lattice, n, prob, ener, mag); 
+  params = fill_lattice(lattice, n, prob, ener, mag);
   print_lattice(lattice, n, *params, *(params+1));
 
   for (int i = 0; i < niter; i++) {
     params = metropolis(lattice, n, T, *params, *(params+1));
-    fprintf(output, "%.10f\n", *(params+1)/(n*n));
+    fprintf(output, "%.10f %.10f\n", *(params+1)/(n*n), *params); //escribe: mag ener
     if (i==niter-1) print_lattice(lattice, n, *params, *(params+1));
   }
 
+  free(lattice);
   return 0;
 }
