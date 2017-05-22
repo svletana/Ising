@@ -5,7 +5,7 @@
 
 float *fill_lattice(int *lattice, int n, float p, float ener, float mag) {
   int i,j,k,s,elocal;
-  float *params = malloc(2*sizeof(float));
+  float *params = (float *)malloc(2*sizeof(float));
 
   // genero la red inicial aleatoriamente
   for (i=0;i<n*n;i++) {

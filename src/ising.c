@@ -8,7 +8,7 @@
 #include "lattice.h"
 
 int main(int argc, char **argv) {
-  float *params = malloc(2*sizeof(float));
+  float *params = (float *)malloc(2*sizeof(float));
   float ener = 0;
   float mag = 0;
 
@@ -23,32 +23,27 @@ int main(int argc, char **argv) {
   }
 
   int n = 32;
-  int *lattice = malloc(n * n * sizeof(int));
+  int *lattice = (int *)malloc(n * n * sizeof(int));
   for (int k=0;k<1;k++) {
    float prob = 0.5+k*0.1;
    float T = 0.1; //No poner T=0
    int niter =3000;
    srand(time(NULL));
-   float B = -100;
+   float B = 100;
    float J=0;
 
    params = fill_lattice(lattice, n, prob, ener, mag);
-   //print_lattice(lattice, n, *params, *(params+1));
 
    for (int i = 0; i < niter; i++) {
      params = metropolis(lattice, n, T, *params, *(params+1),B,J);
-     fprintf(output, "%f\n", prob );
+     //fprintf(output, "%f\n", prob );
      fprintf(output, "%.10f %.10f\n", *(params+1)/(n*n), *params); //escribe: mag ener
-     //printf("%f\n",*params);
-     printf("%f\n",*(params+1)/(n*n) );
 
-
-    // if (i==niter-1) print_lattice(lattice, n, *params, *(params+1));
    }
-   fprintf(output, "\n" );
-   printf("FIN\n" );
-   printf("\n" );
+   //fprintf(output, "\n" );
  }
+
+  fclose(output);
   free(lattice);
   return 0;
 }
