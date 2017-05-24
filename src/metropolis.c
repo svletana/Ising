@@ -5,11 +5,11 @@
 #include <time.h>
 
 
-float *metropolis(int *lattice, int n, float T, float ener, float mag,float B, float J) {
+float *metropolis(int *lattice, int n, float T, float ener, float mag,float B, float J, float J2) {
   int s;
   float *params = (float *)malloc(2*sizeof(float));
   s = pick_site(lattice,n);
-  params = flip(lattice,s,n,T,ener,mag,B,J);
+  params = flip(lattice,s,n,T,ener,mag,B,J,J2);
   return params;
 }
 
@@ -18,15 +18,16 @@ int pick_site(int *lattice, int n) {
   return s;
 }
 
-float *flip(int *lattice, int s, int n, float T, float ener, float mag,float B, float J) {
-  int i,j,sum,deltae;
+float *flip(int *lattice, int s, int n, float T, float ener, float mag,float B, float J, float J2) {
+  int i,j,sum,sum2,deltae;
   float prob, moneda;
   float *params = (float *)malloc(2*sizeof(float));
 
   j=s%n;
   i=(s - s%n)/n;
   sum = lattice[(n+i+1)%n + n*j] + lattice[(n+i-1)%n + n*j] + lattice[i + n*((j+1+n)%n)] + lattice[i + n*((j-1+n)%n)];
-  deltae = 2*(lattice[s])*(J*sum + B);
+  sum2 = lattice[i+1 + n*((j+1+n)%n)] + lattice[i-1 + n*((j+1+n)%n)] + lattice[i+1 + n*((j-1+n)%n)] + lattice[i-1 + n*((j-1+n)%n)];
+  deltae = 2*(lattice[s])*(J*sum + J2*sum2 + B);
   if (deltae<0) {
     *(lattice + s) = -*(lattice + s);
      ener += deltae;
