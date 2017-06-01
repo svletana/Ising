@@ -59,6 +59,7 @@ int main(int argc, char **argv) {
    mag = mag/jmax;
    mag2 = mag2/jmax;
    energia = energia/jmax; //Jmax cantidad de muestras
+   energia2 = energia2/jmax;
    //hmax tamaño del paso de correlacion.
   fprintf(output, "%f %f %f %f %f\n", T, mag/(n*n), mag2/(n*n), energia, energia2);
  }
