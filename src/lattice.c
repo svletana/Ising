@@ -3,9 +3,9 @@
 #include <time.h>
 #include <stdio.h>
 
-float *fill_lattice(int *lattice, int n, float p, float ener, float mag) {
+float *fill_lattice(int *lattice, int n, float p, float *params) {
   int i,j,k,s,elocal;
-  float *params = (float *)malloc(2*sizeof(float));
+  float ener, mag;
 
   // genero la red inicial aleatoriamente
   for (i=0;i<n*n;i++) {
@@ -24,7 +24,7 @@ float *fill_lattice(int *lattice, int n, float p, float ener, float mag) {
   }
   ener = ener/2;
 
-  //calculo su magnetizacion
+  //calculo su magnetizacion 
   for (k=0;k<n*n;k++) {
           mag += (*(lattice + k));
   }

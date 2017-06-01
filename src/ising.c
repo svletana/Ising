@@ -3,50 +3,66 @@
 #include <stdio.h>
 #include <math.h>
 
+
 #include "metropolis.h"
 #include "lattice.h"
 
 int main(int argc, char **argv) {
-  if(argc!=2) {
-    printf("Error, ingresar un solo argumento.\n");
-    exit(1);
+  float *params = (float *)malloc(2*sizeof(float));
+
+  *params = 0;
+  *(params+1) = 0;
+
+  FILE *output = fopen("../scripts/output.txt", "w");
+  if (output == NULL)
+  {
+      printf("Error opening file!\n");
+      exit(1);
   }
-  else {
-    float *params = (float *)malloc(2*sizeof(float));
-    float ener = 0;
-    float mag = 0;
 
-    *params = ener;
-    *(params+1) = mag;
+  int n = 32;
+  int *lattice = (int *)malloc(n * n * sizeof(int));
 
-    FILE *output = fopen("output.txt", "w");
-    if (output == NULL)
-    {
-        fprintf(stderr, "Error opening file!\n");
-        exit(1);
-    }
+ float prob = 0.5; //Probabilidad inicial de llenado de la red. Está elegida de forma tal que los spines arranquen
+ //con la condición inicial de forma mas aleatoria posible, asi tarda menos en termalizar.
 
-   int n = 32;
-   int *lattice = (int *)malloc(n*n*sizeof(int));
-   float prob = 0.5;
-   float T = atof(argv[1]); //No poner T=0
-   int niter = 1000000;
-   srand(time(NULL));
-   float B = 1;
-   float J = 1;
-   float J2 = 0;
+ int nter =40000; //es la cantidad de pasos para el sistema termalice.
+ //int corr = 2000;
+ srand(time(NULL));
+ float B = 0;
+ float J=1;
+ //float J2=0;
+ int jmax= 2000;
+ int hmax= 2000;
 
-   params = fill_lattice(lattice, n, prob, ener, mag);
-
-   for (int i = 0; i < niter; i++) {
-     params = metropolis(lattice, n, T, *params, *(params+1),B,J,J2);
-     //fprintf(output, "%f\n", prob );
-    fprintf(output, "%.10f %.10f\n", *(params+1)/(n*n), *params); //escribe: mag ener
-
+ params = fill_lattice(lattice, n, prob, params);
+ //print_lattice(lattice, n, *params, *(params+1));
+ for (int k=0;k<500;k++) {
+   float T=6-(0.01)*k; //No poner T=0
+   for (int i = 0; i < nter; i++) {
+     params = metropolis(lattice, n, T, params, B, J);
+   } //for para termalizar. Una vez que el sistema queda termalizado, hago metrópolis para guardar los datos.
+   float mag = 0; //Armo la variable magnetizacion donde se va a ir acumulando la mag para cada T.
+   float mag2 = 0;
+   float energia = 0;
+   float energia2 = 0;
+   for (int j =0; j <jmax; j++) {
+     for (int h= 0; h<hmax; h++) {
+       params = metropolis (lattice, n, T, params, B, J);
+       }
+     mag += *(params+1);
+     mag2 += (*(params+1))*(*(params+1));
+     energia += *(params);
+     energia2 += (*(params))*(*(params));
    }
 
-    fclose(output);
-    free(lattice);
-    return 0;
-  }
+   mag = mag/jmax;
+   mag2 = mag2/jmax;
+   energia = energia/jmax; //Jmax cantidad de muestras
+   //hmax tamaño del paso de correlacion.
+  fprintf(output, "%f %f %f %f %f\n", T, mag/(n*n), mag2/(n*n), energia, energia2);
+ }
+
+free(lattice);
+return 0;
 }
