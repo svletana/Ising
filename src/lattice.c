@@ -3,8 +3,8 @@
 #include <time.h>
 #include <stdio.h>
 
-float *fill_lattice(int *lattice, int n, float p, float *params) {
-  int i, j, k, s, elocal;
+float *fill_lattice(int *lattice, int n, float p, float *params, float J, float B, float J2) {
+  int i, j, k, s, elocal, sum2;
   float ener, mag;
 
   // genero la red inicial aleatoriamente
@@ -19,7 +19,8 @@ float *fill_lattice(int *lattice, int n, float p, float *params) {
     for(j = 0; j < n; j++) {
       s = lattice[i + j * n];
       elocal = lattice[(n + i + 1) % n + n * j] + lattice[(n + i - 1) % n + n * j] + lattice[i + n * ((j + 1 + n) % n)] + lattice[i + n * ((j - 1 + n) % n)];
-      ener += s * elocal;
+      sum2 = lattice[i + 1 + n * ((j + 1 + n) % n)] + lattice[i + 1 + n * ((j - 1 + n) % n)] + lattice[i - 1 + n * ((j + 1 + n) % n)] + lattice[i - 1 + n * ((j - 1 + n) % n)];
+      ener += s * ( J * elocal + B + J2 * sum2 );
     }
   }
   ener = ener / 2;
