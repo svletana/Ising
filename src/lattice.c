@@ -42,7 +42,8 @@ int print_lattice(int *lattice, int n, float ener, float mag) {
   //printf("MAGNETIZACION: %f\n\n", mag/(n*n));
   for(i=0;i<n;i++) {
     for(j=0;j<n;j++) {
-      printf("%2.1d  ",lattice[i*n + j]);
+      if(lattice[i*n + j] == 1) { printf("\x1B[31m + "); }
+      else {printf("\x1B[37m - ");}
     }
     printf("\n");
   }

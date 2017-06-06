@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
   float *params = (float *)malloc(2*sizeof(float));
 
   *params = 0;
-  *(params+1) = 0;
+  *(params + 1) = 0;
 
   FILE *output = fopen("../scripts/output.txt", "w");
   if (output == NULL)
@@ -29,8 +29,8 @@ int main(int argc, char **argv) {
  int nter = 40000; //es la cantidad de pasos para el sistema termalice.
  //int corr = 2000;
  srand(time(NULL));
- float B = 0;
- float J = 1;
+ float B = 0.00001;
+ float J = -1;
  float J2 = 0;
  int jmax = 2000; //cantidad de muestras
  int hmax = 2000; //tamaño del paso de correlacion.
@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
  float mag, mag2, energia, energia2, m, e;
  //print_lattice(lattice, n, *params, *(params+1));
  for (int k = 0; k < 500; k++) {
-   float T = 1 + 0.01 * k; //No poner T=0
+   float T = 6 - 0.01 * k; //No poner T=0
    for (int i = 0; i < nter; i++) {
      params = metropolis(lattice, n, T, params, B, J, J2);
    }
@@ -61,11 +61,13 @@ int main(int argc, char **argv) {
      energia2 += pow(e, 2);
    }
 
-   mag = mag / jmax;
-   mag2 = mag2 / jmax;
+   mag = (mag / jmax) / (n * n);
+   mag2 = (mag2 / jmax) / (n * n); // / (n * n * n * n);
    energia = energia / jmax;
    energia2 = energia2 / jmax;
-  fprintf(output, "%f %f %f %f %f\n", T, mag / (n * n), mag2 / pow((n * n), 2), energia, energia2);
+
+  fprintf(output, "%f %f %f %f %f\n", T, mag, mag2, energia, energia2);
+  if(k == 0 || k == 499) print_lattice(lattice, n, energia, mag);
  }
 
 fclose(output);
