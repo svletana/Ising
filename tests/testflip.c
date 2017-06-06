@@ -28,9 +28,10 @@ int main() {
 
   for(i = 1; i <= trials; i++) {
     red = elegirred(red, n, s, i);
+    if (i==4) s = s + 1 + n;
     porcentaje = calc(k, s, n, red, params, B, J, J2, T);
     print_lattice(red, n, *params, *(params + 1));
-    printf("promedio valor del sitio: %f\n", porcentaje);
+    printf("promedio valor del sitio: %f\n\n", porcentaje);
   }
   return 0;
 }
@@ -43,6 +44,7 @@ float calc(int k, int s, int n, int *red, float *params, float B, float J, float
     params = flip(red, s, n, T, params, B, J, J2);
     porcentaje += *(red + s);
   }
+  printf("delta energia: %f\ndelta magnetizacion: %f\n", *params, *(params + 1));
   porcentaje = porcentaje / k; // da una idea de la cantidad de veces que se flipea el spin
   return porcentaje;
 }
