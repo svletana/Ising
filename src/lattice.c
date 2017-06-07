@@ -45,7 +45,7 @@ int print_lattice(int *lattice, int n, float ener, float mag) {
       if(lattice[i*n + j] == 1) { printf("\x1B[31m + "); }
       else {printf("\x1B[37m - ");}
     }
-    printf("\n");
+    printf("\x1B[37m \n");
   }
 
   return 0;

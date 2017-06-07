@@ -29,9 +29,9 @@ int main(int argc, char **argv) {
  int nter = 40000; //es la cantidad de pasos para el sistema termalice.
  //int corr = 2000;
  srand(time(NULL));
- float B = 0.00001;
- float J = -1;
- float J2 = 0;
+ float B = 0;
+ float J = 1;
+ float J2 = -1;
  int jmax = 2000; //cantidad de muestras
  int hmax = 2000; //tamaño del paso de correlacion.
 
