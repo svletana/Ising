@@ -12,25 +12,25 @@ El test contempla cuatro casos, donde para cada uno de ellos se llama a la funci
 
 #### caso 1:
 
-\+ \+ \+ <br />  
-\+ \+ \+ <br />  
-\+ \+ \+ <br />  
+\+ \+ \+ <br />
+\+ \+ \+ <br />
+\+ \+ \+ <br />
 
 Observamos el sitio 5. Se espera que no se realice un _flip_ y que el cambio de energía y magnetización sean nulos.
 
 #### caso 2:
 
-\+ \+ \+ <br />  
-\+ \- \+ <br />  
+\+ \+ \+ <br />
+\+ \- \+ <br />
 \+ \+ \+ <br />
 
 Observamos el sitio 5. Se espera que se realice un _flip_, que el cambio de magnetización sea -2 y que el cambio de energía sea -8.
 
 #### caso 3:
 
-\+ \- \+ <br />  
+\+ \- \+ <br />
 \- \+ \- <br />
-\+ \- \+ <br />  
+\+ \- \+ <br />
 
 Observamos el sitio 5. Se espera que se realice un _flip_, con cambio de magnetización 2 y cambio de energía -8.
 
@@ -38,7 +38,7 @@ Observamos el sitio 5. Se espera que se realice un _flip_, con cambio de magneti
 
 \+ \+ \+ <br />
 \+ \+ \+ <br />
-\+ \+ \- <br />  
+\+ \+ \- <br />
 
 Observamos el sitio 9. Se espera que se realice un _flip_, con cambio de magnetización -2 y cambio de energía -8.
 
