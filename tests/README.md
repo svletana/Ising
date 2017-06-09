@@ -6,39 +6,39 @@ Compilar como _gcc testflip.c ../src/metropolis.c ../src/lattice.c -lm -o flip_.
 
 El test contempla cuatro casos, donde para cada uno de ellos se llama a la funcion _flip_ 5000 veces (volviendo al spin observado a su configuración original antes de llamar a la función nuevamente), se calcula el promedio del valor del spin observado luego de llamar a _flip_, el cambio de energía y el cambio de magnetización. Los casos considerados se detallan a continuación, donde los sitios están numerados de la siguiente forma:
 
-1  2  3
-4  5  6
-7  8  9
+1  2  3 <br />  
+4  5  6 <br />  
+7  8  9 <br />  
 
 #### caso 1:
 
-\+ \+ \+
-\+ \+ \+
-\+ \+ \+
+\+ \+ \+ <br />  
+\+ \+ \+ <br />  
+\+ \+ \+ <br />  
 
 Observamos el sitio 5. Se espera que no se realice un _flip_ y que el cambio de energía y magnetización sean nulos.
 
 #### caso 2:
 
-\+ \+ \+
-\+ \- \+
-\+ \+ \+
+\+ \+ \+ <br />  
+\+ \- \+ <br />  
+\+ \+ \+ <br />
 
 Observamos el sitio 5. Se espera que se realice un _flip_, que el cambio de magnetización sea -2 y que el cambio de energía sea -8.
 
 #### caso 3:
 
-\+ \- \+
-\- \+ \-
-\+ \- \+
+\+ \- \+ <br />  
+\- \+ \- <br />
+\+ \- \+ <br />  
 
 Observamos el sitio 5. Se espera que se realice un _flip_, con cambio de magnetización 2 y cambio de energía -8.
 
 #### caso 4:
 
-\+ \+ \+
-\+ \+ \+
-\+ \+ \-
+\+ \+ \+ <br />
+\+ \+ \+ <br />
+\+ \+ \- <br />  
 
 Observamos el sitio 9. Se espera que se realice un _flip_, con cambio de magnetización -2 y cambio de energía -8.
 
