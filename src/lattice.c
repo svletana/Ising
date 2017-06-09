@@ -4,8 +4,7 @@
 #include <stdio.h>
 
 float *fill_lattice(int *lattice, int n, float p, float *params, float J, float B, float J2) {
-  int i, j, k, s, elocal, sum2;
-  float ener, mag;
+  int i, j, k, s, elocal, sum2, ener, mag;
 
   // genero la red inicial aleatoriamente
   for (i = 0; i < n * n; i++) {
@@ -47,6 +46,7 @@ int print_lattice(int *lattice, int n, float ener, float mag) {
     }
     printf("\x1B[37m \n");
   }
+  printf("\n\n");
 
   return 0;
 }

@@ -29,17 +29,17 @@ int main(int argc, char **argv) {
  int nter = 40000; //es la cantidad de pasos para el sistema termalice.
  //int corr = 2000;
  srand(time(NULL));
- float B = 0;
- float J = 1;
- float J2 = -1;
- int jmax = 2000; //cantidad de muestras
+ float B = 1;
+ float J = 0;
+ float J2 = 0;
+ int jmax = 200; //cantidad de muestras
  int hmax = 2000; //tamaño del paso de correlacion.
 
  params = fill_lattice(lattice, n, prob, params, J, B, J2);
  float mag, mag2, energia, energia2, m, e;
  //print_lattice(lattice, n, *params, *(params+1));
- for (int k = 0; k < 500; k++) {
-   float T = 6 - 0.01 * k; //No poner T=0
+ for (int k = 0; k < 5000; k++) {
+   float T = 6 - 0.001 * k; //No poner T=0
    for (int i = 0; i < nter; i++) {
      params = metropolis(lattice, n, T, params, B, J, J2);
    }
@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
    energia2 = energia2 / jmax;
 
   fprintf(output, "%f %f %f %f %f\n", T, mag, mag2, energia, energia2);
-  if(k == 0 || k == 499) print_lattice(lattice, n, energia, mag);
+  //if(k == 0 || k == 499) print_lattice(lattice, n, energia, mag);
  }
 
 fclose(output);
