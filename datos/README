@@ -1,0 +1,8 @@
+datosCyX.txt: 
+
+usar script CalorySucept.m
+
+datos ej2_tanh2.txt:
+
+plotear data(:,1) contra tanh(2) (T=0.5)
+

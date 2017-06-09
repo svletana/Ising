@@ -1,7 +1,9 @@
-load output.txt
+load datosCyX.txt
+output = datosCyX;
 T = output(:,1);
 m = output(:,2);
 m2 = output(:,3);
+m2 = m2./(32*32);
 e = output(:,4);
 e2 = output(:,5);
 
