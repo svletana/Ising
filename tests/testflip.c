@@ -39,6 +39,8 @@ int main() {
 float calc(int k, int s, int n, int *red, float *params, float B, float J, float J2, float T) {
   int j;
   float porcentaje;
+  *params = 0;
+  *(params + 1) = 0;
 
   for(j = 0; j < k; j++) {
     params = flip(red, s, n, T, params, B, J, J2);
